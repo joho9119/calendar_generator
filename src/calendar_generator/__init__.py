@@ -1,7 +1,6 @@
-from src.calendar_generator.types import CalendarDateDict
-from src.calendar_generator.core import generate_calendar_dates_dicts
+from calendar_generator.core import CalendarDate, generate_calendar_dates
 
 __all__ = [
-    'CalendarDateDict',
-    'generate_calendar_dates_dicts',
+    'CalendarDate',
+    'generate_calendar_dates',
 ]

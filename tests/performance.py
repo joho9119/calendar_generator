@@ -1,32 +1,50 @@
 
-def _test_loop_performance_dicts(start_year: int, end_year: int, num_loops: int = 100) -> None:
+
+def run_performance_test(
+        run_start: int = 1900,
+        run_end: int = 2100,
+        iterations: int = 100) -> None:
+    print("=== generate_calendar_dates (dicts) ===")
+    _test_loop_performance_dicts(run_start, run_end, iterations)
+    print("\n=== datetime.date/timedelta ===")
+    _test_loop_performance_datetime(run_start, run_end, iterations)
+    print("\n=== calendar.Calendar.itermonthdates ===")
+    _test_loop_performance_calendar(run_start, run_end, iterations)
+
+
+def _test_loop_performance_dicts(
+        run_start: int,
+        run_end: int,
+        iterations: int = 100) -> None:
     """
     Measures loop performance using basic timestamps. Defaults to 100 loops.
     """
     import time
-    from calendar_generator import generate_calendar_dates_dicts
+    from calendar_generator import generate_calendar_dates
 
     data = []
 
     start_time = time.perf_counter()
 
-    for r in range(0, num_loops):
-        if num_loops != num_loops:
-            generate_calendar_dates_dicts(start_year, end_year)
-        if num_loops == num_loops:
-            data = generate_calendar_dates_dicts(start_year, end_year)
+    for r in range(0, iterations):
+        data = generate_calendar_dates(run_start, run_end)
 
     end_time = time.perf_counter()
 
-    avg_per_loop = (end_time-start_time)/num_loops
+    avg_per_loop = (end_time-start_time)/iterations
 
-    print(f"Completed {num_loops} iterations.")
+    print(f"Completed {iterations} iterations.")
     print(f"Generated {len(data)} CalendarDate records.")
     print(f"Elapsed time: {end_time - start_time:.4f} seconds.")
     print(f"Avg. time per loop: {avg_per_loop:.4f} seconds.")
+    for d in data[:10]:
+        print(d) # show sample
 
 
-def _test_loop_performance_datetime(start_year: int, end_year: int, num_loops: int = 100) -> None:
+def _test_loop_performance_datetime(
+        start_year: int,
+        end_year: int,
+        num_loops: int = 100) -> None:
     """
     Measures loop performance using datetime.date and timedelta.
     """
@@ -60,6 +78,7 @@ def _test_loop_performance_datetime(start_year: int, end_year: int, num_loops: i
                 year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
             )
             data.append({
+                "date": d.isoformat(),
                 "year": year,
                 "month": month,
                 "day": day,
@@ -75,12 +94,16 @@ def _test_loop_performance_datetime(start_year: int, end_year: int, num_loops: i
                 "is_leap_year": is_leap_year,
             })
             d += datetime.timedelta(days=1)
+
     end_time = time.perf_counter()
+
     avg_per_loop = (end_time-start_time)/num_loops
+
     print(f"Completed {num_loops} iterations. (datetime)")
     print(f"Generated {len(data)} CalendarDate records.")
     print(f"Elapsed time: {end_time - start_time:.4f} seconds.")
     print(f"Avg. time per loop: {avg_per_loop:.4f} seconds.")
+    print(data[:10])  # show sample
 
 
 def _test_loop_performance_calendar(start_year: int, end_year: int, num_loops: int = 100) -> None:
@@ -114,6 +137,7 @@ def _test_loop_performance_calendar(start_year: int, end_year: int, num_loops: i
                             year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
                         )
                         data.append({
+                            "date": d.isoformat(),
                             "year": year,
                             "month": month,
                             "day": day,
@@ -134,13 +158,7 @@ def _test_loop_performance_calendar(start_year: int, end_year: int, num_loops: i
     print(f"Generated {len(data)} CalendarDate records.")
     print(f"Elapsed time: {end_time - start_time:.4f} seconds.")
     print(f"Avg. time per loop: {avg_per_loop:.4f} seconds.")
+    print(data[:10])  # show sample
 
 
-start, end, number_iterations = 1900, 2100, 100
-
-print("=== generate_calendar_dates (dicts) ===")
-_test_loop_performance_dicts(start, end, number_iterations)
-print("\n=== datetime.date/timedelta ===")
-_test_loop_performance_datetime(start, end, number_iterations)
-print("\n=== calendar.Calendar.itermonthdates ===")
-_test_loop_performance_calendar(start, end, number_iterations)
+run_performance_test()

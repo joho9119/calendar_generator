@@ -1,9 +1,9 @@
-__all__ = ['CalendarDateDict', ]
+__all__ = ['CalendarDate', ]
 
-from datetime import date
 from typing import TypedDict
 
-class CalendarDateDict(TypedDict):
+class CalendarDate(TypedDict):
+    d: str
     year: int
     quarter: int
     month: int
@@ -11,10 +11,12 @@ class CalendarDateDict(TypedDict):
     day_of_year: int
     week: int
     weekday: int
+    days_in_month: int
     days_in_year: int
     is_leap_year: bool
     is_weekend: bool
     is_month_end: bool
     is_quarter_end: bool
     is_year_end: bool
+
 
