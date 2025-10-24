@@ -59,10 +59,6 @@ class CalendarDateDict(TypedDict):
     is_year_end: bool
 ```
 
-## Performance
-
-Compared to Python's built-in `datetime` and `calendar` libraries, `calendar-generator` offers significantly improved performance for generating calendar dimension data over large date ranges. This is achieved by minimizing object instantiations and using efficient integer math operations. It is ideal for applications where speed and scalability are critical.
-
 ## Features
 
 - Generates comprehensive calendar dimension data: year, month, day, quarter, ISO week, weekday, etc.
