@@ -1,0 +1,12 @@
+[project]
+name = "calendar-generator"
+version = "0.1.0"
+description = "A zero-dependency, high-performance Python calendar table generator."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [{name = "Joseph Celentano"}]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
