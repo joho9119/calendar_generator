@@ -18,7 +18,7 @@ def _test_loop_performance_dicts(start_year: int, end_year: int, num_loops: int 
 
     end_time = time.perf_counter()
 
-    avg_per_loop = (end-start)/num_loops
+    avg_per_loop = (end_time-start_time)/num_loops
 
     print(f"Completed {num_loops} iterations.")
     print(f"Generated {len(data)} CalendarDate records.")
@@ -76,7 +76,7 @@ def _test_loop_performance_datetime(start_year: int, end_year: int, num_loops: i
             })
             d += datetime.timedelta(days=1)
     end_time = time.perf_counter()
-    avg_per_loop = (end - start) / num_loops
+    avg_per_loop = (end_time-start_time)/num_loops
     print(f"Completed {num_loops} iterations. (datetime)")
     print(f"Generated {len(data)} CalendarDate records.")
     print(f"Elapsed time: {end_time - start_time:.4f} seconds.")
@@ -129,7 +129,7 @@ def _test_loop_performance_calendar(start_year: int, end_year: int, num_loops: i
                             "is_leap_year": is_leap_year,
                         })
     end_time = time.perf_counter()
-    avg_per_loop = (end - start) / num_loops
+    avg_per_loop = (end_time-start_time)/num_loops
     print(f"Completed {num_loops} iterations. (calendar)")
     print(f"Generated {len(data)} CalendarDate records.")
     print(f"Elapsed time: {end_time - start_time:.4f} seconds.")
